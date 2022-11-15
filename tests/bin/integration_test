@@ -1,0 +1,19 @@
+#!/bin/bash
+# integration test
+
+curl -X POST -F  file=@tests/test_audios/StarWars60.wav http://localhost:8000/post
+curl -X POST -F  file=@tests/test_audios/StarWars60.wav http://localhost:8000/post
+curl http://localhost:8000/info?name=StarWars60.wav
+curl http://localhost:8000/info?name=StarWars3.wav
+curl -X POST -F  file=@tests/test_audios/StarWars3.wav http://localhost:8000/post
+curl --output test.wav http://localhost:8000/download?name=StarWars3.wav
+
+curl -X POST -F  file=@tests/test_audios/gettysburg.wav http://localhost:8000/post
+curl -X POST -F  file=@tests/test_audios/gettysburg10.wav http://localhost:8000/post
+curl -X POST -F  file=@tests/test_audios/preamble.wav http://localhost:8000/post
+curl -X POST -F  file=@tests/test_audios/taunt.wav http://localhost:8000/post
+
+curl http://localhost:8000/list
+curl http://localhost:8000/list?maxduration=10
+curl http://localhost:8000/list?maxduration=2
+curl http://localhost:8000/list?minduration=100

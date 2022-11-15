@@ -1,0 +1,11 @@
+#!/bin/bash
+# run
+
+# clean up dbs
+rm -f *.db
+rm -rf audios
+mkdir audios
+
+export FLASK_DEBUG=1
+export FLASK_APP=deepgram_audio_server
+flask run --host 127.0.0.1 --port 8000
