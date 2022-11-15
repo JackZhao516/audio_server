@@ -3,16 +3,16 @@
 
 1. POST raw audio data and store it. 
 
-- $ curl -X POST --data-binary @myfile.wav http://localhost/post 
-- ($ curl -X POST -F file=@myfile.wav http://localhost/post)
+- $ curl -X POST --data-binary @myfile.wav http://localhost:8000/post 
+- ($ curl -X POST -F file=@myfile.wav http://localhost:8000/post)
 
 2. GET a list of stored files, GET the content of stored files, and GET metadata of stored files, such as the duration of the audio. The GET endpoint(s) should accept a query parameter that allows the user to filter results. Results should be returned as JSON. 
 
-- $ curl --output test.wav http://localhost/download?name=myfile.wav 
+- $ curl --output test.wav http://localhost:8000/download?name=myfile.wav 
 
-- $ curl http://localhost/list?maxduration=300 
+- $ curl http://localhost:8000/list?maxduration=300 
 
-- $ curl http://localhost/info?name=myfile.wav 
+- $ curl http://localhost:8000/info?name=myfile.wav 
 
 ## Setup
 ```
