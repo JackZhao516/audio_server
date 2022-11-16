@@ -23,6 +23,7 @@ class Audio(BaseModel):
     created_at = TimestampField(utc=True, default=datetime.datetime.now())
     updated_at = TimestampField(utc=True, default=datetime.datetime.now())
 
+    @staticmethod
     def get_audio_file_info_with_name(name: str):
         """Get the audio file with the given name."""
         try:
@@ -35,6 +36,7 @@ class Audio(BaseModel):
         except Audio.DoesNotExist:
             return None
 
+    @staticmethod
     def get_all_audio_file_ids():
         """Get all the audio files."""
         try:
@@ -44,6 +46,7 @@ class Audio(BaseModel):
         except Audio.DoesNotExist:
             return None
 
+    @staticmethod
     def get_all_audio_file_names_and_durations(maxduration: int = None):
         """Get all the audio files with/without maxduration."""
         try:
@@ -58,6 +61,7 @@ class Audio(BaseModel):
         except Audio.DoesNotExist:
             return None
 
+    @staticmethod
     def update_audio_file(file_id: str, path: str, duration: int):
         """Update the audio file with the given id."""
         try:
@@ -68,6 +72,7 @@ class Audio(BaseModel):
         except Audio.DoesNotExist:
             pass
 
+    @staticmethod
     def add_audio_file(file_id: str, name: str, path: str, duration: int):
         """Add a new audio file."""
         with sqlite_db.atomic():
