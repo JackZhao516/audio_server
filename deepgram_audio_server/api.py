@@ -3,7 +3,7 @@ import os
 import uuid
 from tinytag import TinyTag
 from flask import request, jsonify, send_file
-from deepgram_audio_server.db import *
+from deepgram_audio_server.db import Audio, connect_db, close_db
 import deepgram_audio_server
 
 
@@ -29,10 +29,10 @@ def upload_audio():
     # check if the file already exists.
     # if so, update the file, else, add the file
     connect_db()
-    file_info = get_audio_file_info_with_name(filename)
+    file_info = Audio.get_audio_file_info_with_name(filename)
 
     if file_info is None:
-        ids = get_all_audio_file_ids()
+        ids = Audio.get_all_audio_file_ids()
         file_id = str(uuid.uuid4().hex)
         while file_id in ids:
             file_id = str(uuid.uuid4().hex)
@@ -40,7 +40,7 @@ def upload_audio():
         file_path = os.path.join(
             deepgram_audio_server.app.config['UPLOAD_FOLDER'], filename_uuid)
         uploaded.save(file_path)
-        add_audio_file(
+        Audio.add_audio_file(
             file_id, filename, file_path, TinyTag.get(file_path).duration)
         return_msg = "file uploaded"
     else:
@@ -49,7 +49,7 @@ def upload_audio():
             deepgram_audio_server.app.config['UPLOAD_FOLDER'], filename_uuid)
         os.remove(file_path)
         uploaded.save(file_path)
-        update_audio_file(file_info['file_id'], file_path,
+        Audio.update_audio_file(file_info['file_id'], file_path,
                           TinyTag.get(file_path).duration)
         return_msg = "file updated"
 
@@ -64,7 +64,7 @@ def get_audio_info():
         return jsonify({'error': 'No file name'}), 404
 
     connect_db()
-    file_info = get_audio_file_info_with_name(request.args['name'])
+    file_info = Audio.get_audio_file_info_with_name(request.args['name'])
     close_db()
     if file_info is None:
         return jsonify({'error': 'file not found'}), 404
@@ -81,7 +81,7 @@ def download_audio():
         return jsonify({'error': 'No file name'}), 404
 
     connect_db()
-    file_info = get_audio_file_info_with_name(request.args['name'])
+    file_info = Audio.get_audio_file_info_with_name(request.args['name'])
     close_db()
     if file_info is None:
         return jsonify({'error': 'file not found'}), 404
@@ -96,6 +96,6 @@ def list_audio():
     """List all the audio files in the server with or without max duration."""
     connect_db()
     maxduration = request.args.get('maxduration', default=None, type=int)
-    audio_list = get_all_audio_file_names_and_durations(maxduration)
+    audio_list = Audio.get_all_audio_file_names_and_durations(maxduration)
     close_db()
     return jsonify({'list': audio_list}), 201

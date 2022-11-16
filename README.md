@@ -44,7 +44,7 @@ Integration tests:
 - How to handle user authentication and data security?
   - Add the User model to the database and stored usernames and salted passwords.
   - Bind the user to the audio file and only allow the user to access their own files.
-  - user have to log in to access the API, can use things like before_request to write check login function.
+  - user have to log in to access the API, can use things like before_request in Flask to write check login function.
 - How to build a simple browser UI to interface with your API?
   - Can use React or Vue as the front end to build a simple UI. 
   - Write a few HTML templates and use javascript to render the pages.
@@ -56,6 +56,7 @@ Integration tests:
 - How do you want to store audio data? For the purposes of this interview, just keeping them in memory is fine, but how else would you want to keep and serve audio data?
   - For current scale, can store locally, renaming them with UUIDs.
   - For larger scale, can store in AWS S3 buckets.
+  - If we are facing a global audience, can use AWS CDN, a distributed network of servers that can deliver content to users based on the geographic locations of the user.
   - To serve audio data, can use audio hosting sites like SoundCloud to store and serve audio data. Instead of storing a local path in the database, can now store a link to the file.
 - How to handle data integrity? How to make sure that users can't break your API by uploading rogue text data? How to make sure the metadata you calculate is correct and not thrown off by unmet expectations on the backend? 
   - Can use TinyTag to parse the metadata of the audio file and check whether it is a valid audio file.
