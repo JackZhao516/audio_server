@@ -4,7 +4,7 @@ from peewee import Model, SqliteDatabase, CharField, TimestampField, IntegerFiel
 
 sqlite_db = SqliteDatabase('audio_sever.db',
                            pragmas={'journal_mode': 'wal',
-                                    'cache_size': -1 * 64000,  # 64MB
+                                    'cache_size': -1 * 32000,  # 32MB
                                     'synchronous': 0})
 
 
