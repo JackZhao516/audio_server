@@ -1,4 +1,4 @@
-# Deepgram Prompt
+# Audio Server
  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/deepgram/prompt/master/LICENSE)
 
 1. POST raw audio data and store it. 
